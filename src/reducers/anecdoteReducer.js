@@ -29,6 +29,8 @@ const reducer = (state = initialState, action) => {
         return anecdote.id !== action.payload.id 
             ? anecdote 
             : {...anecdote, votes: anecdote.votes + 1}})
+    case "ADD_ANECDOTE":
+      return state.concat(asObject(action.payload.anecdote))
     default:
       return state
   }
