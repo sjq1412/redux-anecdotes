@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit"
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -19,35 +21,56 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-
-  switch(action.type) {
-    case "VOTE":
-      return state.map(anecdote => {
-        return anecdote.id !== action.payload.id 
-            ? anecdote 
-            : {...anecdote, votes: anecdote.votes + 1}})
-    case "ADD_ANECDOTE":
-      return state.concat(action.payload)
-    default:
-      return state
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState,
+  reducers: {
+    createAnecdote(state, action) {
+      const anecdote = action.payload
+      state.push(asObject(anecdote))
+    },
+    vote(state, action) {
+      const id = action.payload
+      const anecdotes = state.map(anecdote => {
+        return anecdote.id !== id
+                 ? anecdote 
+                : {...anecdote, votes: anecdote.votes + 1 }
+      })
+      return anecdotes
+    }
   }
-}
+})
 
-export const createAnecdote = anecdote => {
-  return {
-    type: "ADD_ANECDOTE",
-    payload: asObject(anecdote)
-  }
-}
+// const reducer = (state = initialState, action) => {
+//   console.log('state now: ', state)
+//   console.log('action', action)
 
-export const vote = id => {
-  return {
-    type: "VOTE",
-    payload: { id }
-  }
-}
+//   switch(action.type) {
+//     case "VOTE":
+//       return state.map(anecdote => {
+//         return anecdote.id !== action.payload.id 
+//             ? anecdote 
+//             : {...anecdote, votes: anecdote.votes + 1}})
+//     case "ADD_ANECDOTE":
+//       return state.concat(action.payload)
+//     default:
+//       return state
+//   }
+// }
 
-export default reducer
+// export const createAnecdote = anecdote => {
+//   return {
+//     type: "ADD_ANECDOTE",
+//     payload: asObject(anecdote)
+//   }
+// }
+
+// export const vote = id => {
+//   return {
+//     type: "VOTE",
+//     payload: { id }
+//   }
+// }
+
+export const { createAnecdote, vote } = anecdoteSlice.actions
+export default anecdoteSlice.reducer

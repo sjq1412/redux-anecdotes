@@ -4,6 +4,7 @@ import { vote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = () => {
   const anecdotes = useSelector(({anecdotes, filter}) => {
+    console.log(anecdotes)
     if (filter === "") {
       return anecdotes
     } else {
@@ -19,15 +20,15 @@ const AnecdoteList = () => {
 
   return (
     <div>
-        {anecdotes.sort((a,b) => b.votes - a.votes).map(anecdote =>
+        {anecdotes.slice().sort((a,b) => b.votes - a.votes).map(anecdote =>
             <div key={anecdote.id}>
-            <div>
-                {anecdote.content}
-            </div>
-            <div>
-                has {anecdote.votes}
-                <button onClick={() => makeVote(anecdote.id)}>vote</button>
-            </div>
+              <div>
+                  {anecdote.content}
+              </div>
+              <div>
+                  has {anecdote.votes}
+                  <button onClick={() => makeVote(anecdote.id)}>vote</button>
+              </div>
             </div>
         )}
     </div>
