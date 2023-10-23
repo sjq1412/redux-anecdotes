@@ -1,21 +1,8 @@
-import { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { clearNotification } from "../reducers/notificationReducer"
+import { useSelector  } from "react-redux" 
 
-const Notification = () => {
-  const dispatch = useDispatch()
+const Notification = () => { 
   const notification = useSelector(({notification}) => notification)
-
-  useEffect(() => {
-    const clear = setTimeout(() => {
-      dispatch(clearNotification())
-    }, 5000);
-    return () => {
-      clearTimeout(clear)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notification])
-
+ 
   const style = {
     border: 'solid',
     padding: 10,

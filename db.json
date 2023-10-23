@@ -2,8 +2,8 @@
   "anecdotes": [
     {
       "content": "If it hurts, do it more often",
-      "id": "47145",
-      "votes": 0
+      "votes": 1,
+      "id": "47145"
     },
     {
       "content": "Adding manpower to a late software project makes it later!",
@@ -47,8 +47,13 @@
     },
     {
       "content": "velvet haze",
-      "votes": 3,
+      "votes": 8,
       "id": "U-lev0T"
+    },
+    {
+      "content": "hiiiiii",
+      "votes": 0,
+      "id": "xRRYNTN"
     }
   ]
 }
